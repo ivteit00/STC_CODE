@@ -4,6 +4,7 @@ from functools import wraps
 
 # Third pary imports
 from flask import render_template, session, redirect, url_for, request, Blueprint
+from flask_login import login_required, current_user
 
 # Local application imports
 
@@ -13,13 +14,9 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/home')
+@login_required
 def home():
-    return '<h1>Mitarbeiter Home View'
-
-
-@views.route('/logout')
-def logout():
-    session.pop('logged_in')
+    return render_template('home.html', full_name=session.get('full_name'))
 
 
 # MA-statistic-viewfunction

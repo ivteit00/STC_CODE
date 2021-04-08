@@ -21,10 +21,12 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
+
         if user:
             if password == user.password:
                 flash('Logged in successfully', category='success')
                 login_user(user)
+                session['full_name'] = user.full_name
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again', category='error')
@@ -32,3 +34,10 @@ def login():
             flash('Email does not exist.', category='error')
 
     return render_template('login.html')
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
