@@ -19,9 +19,11 @@
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
                 <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                <a class="nav-item nav-link" id="sign-up" href="/sign-up">Sign-Up</a>
                 <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
                 <a class="nav-item nav-link" id="home" href="/home">Home</a>
+                <a class="nav-item nav-link" id="wortime" href="/worktime">Worktime</a>
+                <a class="nav-item nav-link" id="vacation">Vacation</a>
+                <a class="nav-item nav-link" id="statistics">Statistics</a>
             </div>
         </div>
     </nav>
@@ -29,33 +31,25 @@
 
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
         {% if messages %}
         {% for category, message in messages %}
-        {% if category == 'error' %}
-        <div class="alert alert-danger alert-dismissable fade show" role="alert">
-            {{message}}
-            <button type="button" class="close" data-dismiss="allert">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <!-- <strong>Title</strong> --> {{ message }}
         </div>
-
-        {% else %}
-
-        <div class="alert alert-success alert-dismissable fade show" role="alert">
-            {{message}}
-            <button type="button" class="close" data-dismiss="allert">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {% endif %}
         {% endfor %}
         {% endif %}
         {% endwith %}
     </div>
 
-    {% block page_header %}
+    <div class="page-header">
+        {% block page_header %}
 
-    {% endblock page_header %}
+        {% endblock page_header %}
+    </div>
+
 
     {% block content %}
 
@@ -71,6 +65,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
 
 </html>

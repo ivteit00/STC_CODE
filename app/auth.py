@@ -29,9 +29,9 @@ def login():
                 session['full_name'] = user.full_name
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect password, try again', category='error')
+                flash('Incorrect password, try again', category='danger')
         else:
-            flash('Email does not exist.', category='error')
+            flash('Email does not exist.', category='danger')
 
     return render_template('login.html')
 

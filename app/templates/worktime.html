@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Worktime{% endblock title %}
+
+{% block page_header %}
+<div class="container">
+    <h1>Please enter your worktime for today!</h1>
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<form method="POST">
+    <div class="container">
+        <div class="md-form mx-5 my-5">
+            <label for="start-time">Please choose your start time</label>
+            <input type="time" name="start-time" id="starttime" class="form-control" value="09:00" required>
+        </div>
+        <div class="md-form mx-5 my-5">
+            <label for="end-time">Please choose your end time</label>
+            <input type="time" name="end-time" id="end-time" class="form-control" value="17:00" required>
+        </div>
+        <div class="md-form mx-5 my-5">
+            <label for="break-time">Please enter your break time in minutes</label>
+            <input type="number" name="break-time" id="break-time" class="form-control" value="60" step="10">
+        </div>
+        <div class="md-form mx-5 my-5">
+            <button type="submit" class="btn btn-primary">Submit!</button>
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
