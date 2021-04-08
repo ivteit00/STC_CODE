@@ -17,7 +17,7 @@ views = Blueprint('views', __name__)
 @views.route('/home')
 @login_required
 def home():
-    return render_template('home.html', full_name=session.get('full_name'))
+    return render_template('home.html', full_name=session.get('full_name'), user=current_user)
 
 
 @views.route('/worktime', methods=['GET', 'POST'])
@@ -40,7 +40,7 @@ def worktime():
         print(worktime_in_minutes, "minutes")
         print(worktime_in_hours, "hours")
 
-    return render_template('worktime.html')
+    return render_template('worktime.html', user=current_user)
 
 
 # MA-statistic-viewfunction

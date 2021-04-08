@@ -18,12 +18,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
-                <a class="nav-item nav-link" id="login" href="/login">Login</a>
-                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                {% if user.is_authenticated %}
                 <a class="nav-item nav-link" id="home" href="/home">Home</a>
                 <a class="nav-item nav-link" id="wortime" href="/worktime">Worktime</a>
                 <a class="nav-item nav-link" id="vacation">Vacation</a>
                 <a class="nav-item nav-link" id="statistics">Statistics</a>
+                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                {% else %}
+                <a class="nav-item nav-link" id="login" href="{{url_for('auth.login')}}">Login</a>
+                {% endif %}
             </div>
         </div>
     </nav>
