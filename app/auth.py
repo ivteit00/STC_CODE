@@ -17,19 +17,18 @@ auth = Blueprint('auth', __name__)
 def login():
     """Log-In-viewfunction"""
     if request.method == 'POST':
-        email = request.form.get('emaiL')
+        email = request.form.get('email')
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-
         if user:
-            if user.password == password:
+            if password == user.password:
                 flash('Logged in successfully', category='success')
-                login_user(user, remember=True)
+                login_user(user)
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again', category='error')
         else:
             flash('Email does not exist.', category='error')
 
-    return render_template('login.html', boolean=True)
+    return render_template('login.html')
