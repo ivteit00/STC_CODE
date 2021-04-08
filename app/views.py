@@ -12,10 +12,16 @@ views = Blueprint('views', __name__)
 
 # MA-home-viewfunction
 
-@check_logged_in
+
 @views.route('/home')
+@check_logged_in
 def home():
     return '<h1>Mitarbeiter Home View'
+
+
+@views.route('/logout')
+def logout():
+    session.pop('logged_in')
 
 
 # MA-statistic-viewfunction
