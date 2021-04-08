@@ -9,7 +9,7 @@
 #upload_worktime(float, float)
 #hand_in_illness(date)
 #hand_in_vacation(date, date)
-</help_text><element><id>UMLClass</id><coordinates><x>310</x><y>30</y><w>210</w><h>200</h></coordinates><panel_attributes>User
+</help_text><element><id>UMLClass</id><coordinates><x>280</x><y>140</y><w>210</w><h>200</h></coordinates><panel_attributes>User
 --
 -id: int
 -email: string
@@ -18,7 +18,7 @@
 
 --
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>230</y><w>210</w><h>240</h></coordinates><panel_attributes>Chef
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>350</y><w>210</w><h>240</h></coordinates><panel_attributes>Chef
 --
 
 --
@@ -28,7 +28,7 @@
 #check_workers_statistics()
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>240</y><w>210</w><h>190</h></coordinates><panel_attributes>Worker
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>360</y><w>210</w><h>190</h></coordinates><panel_attributes>Worker
 --
 -work_time: float
 -target_time: float
@@ -40,10 +40,10 @@
 #hand_in_illness(date)
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>120</y><w>200</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>180;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>120</y><w>220</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>370</y><w>210</w><h>190</h></coordinates><panel_attributes>Human Resources
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>230</y><w>200</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>180;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>230</y><w>220</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>490</y><w>210</w><h>190</h></coordinates><panel_attributes>Human Resources
 --
 
 --
 #check_workers_statistics()
 #approve_illness()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>220</y><w>30</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>330</y><w>30</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element></diagram>

@@ -6,7 +6,6 @@ from functools import wraps
 from flask import render_template, session, redirect, url_for, request, Blueprint
 
 # Local application imports
-from .auth import check_logged_in
 
 views = Blueprint('views', __name__)
 
@@ -14,7 +13,6 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/home')
-@check_logged_in
 def home():
     return '<h1>Mitarbeiter Home View'
 

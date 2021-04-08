@@ -4,18 +4,17 @@ from flask_moment import Moment
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from config import config
 from os import path
 
-bootstrap = Bootstrap()
 db = SQLAlchemy()
+DB_NAME = 'database.db'
 
 
 def create_app(config_name):
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
-    bootstrap.init_app(app)
+    app.config['SECRET_KEY'] = '9QxEIB84nNKgxjz9ahPjM2HRtwrERAli4PGtjRjV'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
     # Register all blueprints
@@ -25,12 +24,14 @@ def create_app(config_name):
     app.register_blueprint(auth)
     app.register_blueprint(views)
 
-    create_database(app=app, config_name=config_name)
+    from .models import User
+
+    create_database(app=app)
 
     return app
 
 
-def create_database(app, config_name):
-    if not path.exists('app/'+config[config_name].DB_NAME):
+def create_database(app):
+    if not path.exists('website/'+DB_NAME):
         db.create_all(app=app)
         print('Created database!')
