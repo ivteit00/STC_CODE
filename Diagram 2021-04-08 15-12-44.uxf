@@ -1,0 +1,49 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Chef
+--
+-id: int
+-email: string
+-password: string
+-department: string
+
+--
+#upload_worktime(float, float)
+#hand_in_illness(date)
+#hand_in_vacation(date, date)
+</help_text><element><id>UMLClass</id><coordinates><x>310</x><y>30</y><w>210</w><h>200</h></coordinates><panel_attributes>User
+--
+-id: int
+-email: string
+-password: string
+-department: string
+
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>230</y><w>210</w><h>240</h></coordinates><panel_attributes>Chef
+--
+
+--
+#accept_vacation()
+#reject_vacation()
+#approve_worktime()
+#check_workers_statistics()
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>240</y><w>210</w><h>190</h></coordinates><panel_attributes>Worker
+--
+-work_time: float
+-target_time: float
+-vacation_days_remainig: int
+-flex_time: float
+--
+#hand_in_vacation(date, date)
+#hand_in_worktime(float, float)
+#hand_in_illness(date)
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>120</y><w>200</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>180;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>120</y><w>220</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;200;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>370</y><w>210</w><h>190</h></coordinates><panel_attributes>Human Resources
+--
+
+--
+#check_workers_statistics()
+#approve_illness()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>220</y><w>30</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element></diagram>

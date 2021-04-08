@@ -1,0 +1,24 @@
+body,
+html {
+    height: 100%;
+    background-color: #fcfcfc;
+}
+
+
+.center {
+    margin-top: 1%;
+}
+
+.logo {
+    margin-top: 25;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+}
+
+.smaller-container {
+    width: 20%;
+
+}
