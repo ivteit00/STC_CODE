@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Vacation{% endblock title %}
+
+
+{% block page_header %}
+<div class="container">
+    <h3>Book your vacation</h3>
+
+</div>
+{% endblock page_header %}
+
+{% block content %}
+<form method="POST">
+    <div class="container">
+        <div class="md-form mx-5 my-5">
+            <label for="start-time">Please choose the date you want your vacation to start</label>
+            <input type="date" name="start-date" id="startdate" class="form-control" required>
+        </div>
+        <div class="md-form mx-5 my-5">
+            <label for="start-time">Please choose the date you want your vacation to end</label>
+            <input type="date" name="end-date" id="enddate" class="form-control" required>
+        </div>
+        <div class="md-form mx-5 my-5">
+            <button type="submit" class="btn btn-primary">Submit your vacation!</button>
+        </div>
+    </div>
+</form>
+{% endblock content %}

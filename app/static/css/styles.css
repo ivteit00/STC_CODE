@@ -10,15 +10,29 @@ html {
 }
 
 .logo {
-    margin-top: 25;
-    display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
+    width: 300px;
+    height: 300px;
+    align-items: center;
+    position: relative;
+    display: block;
 
 }
 
-.smaller-container {
-    width: 20%;
 
+.img-class {
+    width: 200px;
+    height: 200px;
 }
+
+.login-center {
+    width: 300px;
+    height: 600px;
+   
+}
+
+.visual {
+    border: 1px solid black;
+}
+

@@ -43,6 +43,11 @@ def worktime():
     return render_template('worktime.html', user=current_user)
 
 
+@views.route('/vacation', methods=['GET', 'POST'])
+@login_required
+def vacation():
+    return render_template('vacation.html', user=current_user)
+
 # MA-statistic-viewfunction
 
 

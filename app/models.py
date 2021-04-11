@@ -23,3 +23,9 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role %r>' % self.name
+
+
+class VacationRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
