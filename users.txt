@@ -1,9 +1,22 @@
+# role_id's: 
+    1. worker
+    2. chef
+    3. human resources
+---------------------------------
+cmd: "python manage.py shell"
+-> in shell type in:
+
+from app import db
+from app.models import User, Role
+
 worker_role = Role (name = 'worker')
 chef_role = Role(name = 'chef')
 hr_role = Role(name = 'hr')
 
-user_test_1 = User(email = 'test1@gmail.de', password = 'password', full_name = 'Max Mustermann')
-user_test_2 = User(email = 'test2@gmail.de', password = 'password', full_name = 'John Doe')
+user_test_1 = User(email = 'test1@gmail.com', password = 'password', full_name = 'Max Mustermann', role=worker_role)
+user_test_2 = User(email = 'test2@gmail.com', password = 'password', full_name = 'John Doe', role=chef_role)
 
-user_test_3 = User(email = 'test3@gmail.de', password = 'password', full_name = 'Anita John')
+user_test_3 = User(email = 'test3@gmail.com', password = 'password', full_name = 'Anita John', role=hr_role)
 
+db.session.add_all([worker_role, chef_role, hr_role, user_test_1, user_test_2,user_test_3])
+db.session.commit()

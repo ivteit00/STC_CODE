@@ -45,16 +45,3 @@ def create_database(app):
         print('Created database!')
 
 
-def create_dummy_users():
-    from .models import User, Role
-
-    worker_role = Role(name='worker')
-    chef_role = Role(name='chef')
-    hr_role = Role(name='hr')
-
-    test_user_1 = User(email='test1@gmail.de',
-                       password='password', full_name='Max Mustermann')
-    test_user_1 = User(email='test2@gmail.de',
-                       password='password', full_name='John Doe')
-    test_user_1 = User(email='test3@gmail.de',
-                       password='password', full_name='Anita John')

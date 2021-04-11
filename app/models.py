@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     roles_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     def __repr__(self):
-        return '<User %r>' % self.full_name
+        return '<User %r,' % self.full_name + 'role %r' % self.roles_id
 
 
 class Role(db.Model):
@@ -22,10 +22,12 @@ class Role(db.Model):
     users = db.relationship('User', backref='role')
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return '<Role %r, ' % self.name + 'id %r' % self.id + '>'
 
 
 class VacationRequest(db.Model):
+    __tablename__ = 'vacation'
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
+    approved = db.Column(db.Boolean)
