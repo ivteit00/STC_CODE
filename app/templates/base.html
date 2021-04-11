@@ -31,12 +31,16 @@
                 {% endif %}
             </ul>
             {% if user.is_authenticated %}
-            <span class="navbar-item">
-                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            <span class="navbar-text">
+                <button class="button-small">
+                    <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+                </button>
             </span>
             {% endif %}
         </div>
     </nav>
+
+    <br><br>
 
 
     <div class="container">
@@ -55,16 +59,18 @@
     </div>
 
     <div class="page-header">
-        {% block page_header %}
+        <div class="container">
+            {% block page_header %}
 
-        {% endblock page_header %}
+            {% endblock page_header %}
+        </div>
     </div>
 
+    <div class="container">
+        {% block content %}
 
-    {% block content %}
-
-    {% endblock content %}
-
+        {% endblock content %}
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">

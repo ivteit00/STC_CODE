@@ -2,6 +2,7 @@ body,
 html {
     height: 100%;
     background-color: #fcfcfc;
+    font-family: 'Microsoft YaHei UI', Courier, monospace;
 }
 
 
@@ -29,10 +30,24 @@ html {
 .login-center {
     width: 300px;
     height: 600px;
-   
+
 }
 
 .visual {
     border: 1px solid black;
 }
 
+.button-small {
+    background: #1749FF;
+    color: white;
+    float: left;
+    border-radius: 57px;
+    border: 0px;
+    height: 40px;
+    transition: all 0.4s ease 0s;
+}
+
+.button-small:hover {
+    background: #3661ff;
+
+}
