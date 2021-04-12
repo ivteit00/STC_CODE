@@ -1,6 +1,6 @@
 from . import db
 from flask_login import UserMixin
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func, expression
 
 
 class User(db.Model, UserMixin):
@@ -10,9 +10,10 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     full_name = db.Column(db.String(150))
     roles_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    vacation_requests = db.relationship('VacationRequest')
 
     def __repr__(self):
-        return '<User %r,' % self.full_name + 'role %r' % self.roles_id
+        return '<User %r>' % self.full_name
 
 
 class Role(db.Model):
@@ -30,4 +31,6 @@ class VacationRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
-    approved = db.Column(db.Boolean)
+    approved = db.Column(
+        db.Boolean, server_default=expression.false(), nullable=False)
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))

@@ -25,6 +25,7 @@
                 <li class="nav-item"><a class="nav-item nav-link" id="wortime" href="/worktime">Worktime</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation" href="/vacation">Vacation</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="statistics">Statistics</a></li>
+                <li class="nav-item"><a class="nav-item nav-link" id="vacation-requests" href="{{url_for('views.vacation_requests')}}">Vacation-Request</a></li>
                 {% else %}
                 <li class="nav-item"><a class="nav-item nav-link" id="login" href="{{url_for('auth.login')}}">Login</a>
                 </li>
@@ -37,8 +38,10 @@
                 </button>
             </span>
             {% endif %}
+
+            
         </div>
-    </nav>
+    </nav> <!--Navbar-->
 
 
 
@@ -55,7 +58,7 @@
         {% endfor %}
         {% endif %}
         {% endwith %}
-    </div>
+    </div> <!--Flashing messages-->
 
     <br>
 

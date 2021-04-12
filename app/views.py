@@ -1,5 +1,5 @@
 # Standard libary imports
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from functools import wraps
 import time
 
@@ -46,18 +46,17 @@ def worktime():
 @views.route('/vacation', methods=['GET', 'POST'])
 @login_required
 def vacation():
+    if request.method == 'POST':
+        start_date = datetime.strptime(
+            request.form.get('start_date'), '%Y-%m-%d').date()
+        end_date = datetime.strftime(
+            request.form.get('end_date'), '%Y-%m-%d').date()
     return render_template('vacation.html', user=current_user)
 
-# MA-statistic-viewfunction
 
-
-# MA-vacation-viewfunction
-
-
-# SU-home-viewfunction
-
-
-# SU-applications-viewfunction
-
-
-# HR-home-viewfunction
+@views.route('/vacation_requests')
+@login_required
+def vacation_requests():
+    from .models import VacationRequest
+    requests = VacationRequest.query.all()
+    return render_template('vacation_requests.html', requests=requests, user=current_user, full_name=session.get('full_name'))

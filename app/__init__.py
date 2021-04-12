@@ -4,6 +4,7 @@ from flask_moment import Moment
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_script import Shell
 from os import path
 
 db = SQLAlchemy()
@@ -43,5 +44,3 @@ def create_database(app):
     if not path.exists('app/'+DB_NAME):
         db.create_all(app=app)
         print('Created database!')
-
-
