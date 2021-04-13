@@ -4,33 +4,34 @@ from sqlalchemy.sql import func, expression
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     full_name = db.Column(db.String(150))
-    roles_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    vacation_requests = db.relationship('VacationRequest')
+    target_hours = db.Column(db.Integer, default=160)
+    worked_hours = db.Column(db.Integer, default=0)
+    roles_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    vacation_requests = db.relationship('Vacation', backref='user')
 
     def __repr__(self):
         return '<User %r>' % self.full_name
 
 
 class Role(db.Model):
-    __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     users = db.relationship('User', backref='role')
 
     def __repr__(self):
-        return '<Role %r, ' % self.name + 'id %r' % self.id + '>'
+        return '<Role %r>' % self.name
 
 
-class VacationRequest(db.Model):
-    __tablename__ = 'vacation'
+class Vacation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
-    approved = db.Column(
-        db.Boolean, server_default=expression.false(), nullable=False)
-    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    approved = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return '<Vacation %r>' % self.id

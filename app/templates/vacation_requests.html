@@ -13,17 +13,18 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Employee Name</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Approved?</th>
+            <th class="col">Worker-Name</th>
+            <th class="col">Worker-Id</th>
+            <th class="col">Start-Date</th>
+            <th class="col">End-Date</th>
+            <th class="col">Approved?</th>
         </tr>
     </thead>
     <tbody>
-
         {% for request in requests %}
         <tr>
-            <td>{{user.full_name}}</td>
+            <td>{{User.query.filter_by(id=request.user_id).first().full_name}}</td>
+            <td>{{User.query.filter_by(id=request.user_id).first().id}}</td>
             <td>{{request.start_date}}</td>
             <td>{{request.end_date}}</td>
             <td>{{request.approved}}</td>

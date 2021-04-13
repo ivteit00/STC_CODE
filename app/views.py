@@ -57,6 +57,7 @@ def vacation():
 @views.route('/vacation_requests')
 @login_required
 def vacation_requests():
-    from .models import VacationRequest
-    requests = VacationRequest.query.all()
-    return render_template('vacation_requests.html', requests=requests, user=current_user, full_name=session.get('full_name'))
+    from .models import Vacation, User
+    requests = Vacation.query.all()
+    users = User.query.all()
+    return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User)
