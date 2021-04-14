@@ -10,8 +10,12 @@ class User(db.Model, UserMixin):
     full_name = db.Column(db.String(150))
     target_hours = db.Column(db.Integer, default=160)
     worked_hours = db.Column(db.Integer, default=0)
+    flex_time = db.Column(db.Integer, default=0)
+    vacation_days = db.Column(db.Integer, default=30)
+    vacation_days_taken = db.Column(db.Integer, default=0)
     roles_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     vacation_requests = db.relationship('Vacation', backref='user')
+    illness = db.relationship('Illness', backref='user')
 
     def __repr__(self):
         return '<User %r>' % self.full_name
@@ -35,3 +39,10 @@ class Vacation(db.Model):
 
     def __repr__(self):
         return '<Vacation %r>' % self.id
+
+
+class Illness (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

@@ -8,6 +8,8 @@ from flask import render_template, session, redirect, url_for, request, Blueprin
 from flask_login import login_required, current_user
 
 # Local application imports
+from .models import User, Vacation
+
 
 views = Blueprint('views', __name__)
 
@@ -47,7 +49,6 @@ def worktime():
 @login_required
 def vacation():
     if request.method == 'POST':
-        from .models import User, Vacation
         start_date = datetime.strptime(
             request.form.get('start_date'), '%Y-%m-%d').date()
         end_date = datetime.strftime(
@@ -59,7 +60,6 @@ def vacation():
 @views.route('/vacation_requests')
 @login_required
 def vacation_requests():
-    from .models import Vacation, User
     requests = Vacation.query.all()
     users = User.query.all()
     return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User)
