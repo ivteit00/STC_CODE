@@ -47,10 +47,12 @@ def worktime():
 @login_required
 def vacation():
     if request.method == 'POST':
+        from .models import User, Vacation
         start_date = datetime.strptime(
             request.form.get('start_date'), '%Y-%m-%d').date()
         end_date = datetime.strftime(
             request.form.get('end_date'), '%Y-%m-%d').date()
+        user_days = User.query.filter_by(id=session.get('user_id')).first()
     return render_template('vacation.html', user=current_user)
 
 
