@@ -9,13 +9,13 @@ cmd: "python manage.py shell"
 from app import db
 from app.models import User, Role
 
-worker_role = Role (name = 'worker')
-chef_role = Role(name = 'chef')
+employee_role = Role (name = 'employee')
+supervisor_role = Role(name = 'supervisor')
 hr_role = Role(name = 'hr')
 
-user_test_1 = User(email = 'test1@gmail.com', password = 'password', full_name = 'Max Mustermann', role=worker_role)
-user_test_2 = User(email = 'test2@gmail.com', password = 'password', full_name = 'John Doe', role=chef_role)
+user_test_1 = User(email = 'test1@gmail.com', password = 'password', full_name = 'Max Mustermann', role=employee_role)
+user_test_2 = User(email = 'test2@gmail.com', password = 'password', full_name = 'John Doe', role=supervisor_role)
 user_test_3 = User(email = 'test3@gmail.com', password = 'password', full_name = 'Anita John', role=hr_role)
 
-db.session.add_all([worker_role, chef_role, hr_role, user_test_1, user_test_2,user_test_3])
+db.session.add_all([employee_role, supervisor_role, hr_role, user_test_1, user_test_2,user_test_3])
 db.session.commit()
