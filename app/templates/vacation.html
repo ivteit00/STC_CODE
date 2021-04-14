@@ -29,25 +29,27 @@
             </form>
         </div>
         <div class="col-sm-3">
-            <table class="table">
-                <thead>
-                    <tr>
+            <div class="requests">
+                <table class="table">
+                    <thead>
+                        <tr>
 
-                        <th class="col">Start-Date</th>
-                        <th class="col">End-Date</th>
-                        <th class="col">Approved?</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for request in requests %}
-                    <tr>
-                        <td>{{request.start_date}}</td>
-                        <td>{{request.end_date}}</td>
-                        <td>{{request.approved}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            <th class="col">Start-Date</th>
+                            <th class="col">End-Date</th>
+                            <th class="col">Approved?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in requests %}
+                        <tr>
+                            <td>{{request.start_date}}</td>
+                            <td>{{request.end_date}}</td>
+                            <td>{{request.approved}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
