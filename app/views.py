@@ -9,6 +9,7 @@ from flask_login import login_required, current_user
 
 # Local application imports
 from .models import User, Vacation
+from . import db
 
 
 views = Blueprint('views', __name__)
@@ -54,10 +55,10 @@ def vacation():
         end_date = datetime.strptime(
             request.form.get('end_date'), '%Y-%m-%d')
         dif = get_workdays(start_date, end_date)
-        vacation_days = User.query.filter_by(
-            id=session.get('user_id')).first().vacation_days
-        vacation_days_taken = User.query.filter_by(
-            id=session.get('user_id')).first().vacation_days_taken
+        user = User.query.filter_by(
+            id=session.get('user_id')).first()
+        vacation_days = user.vacation_days
+        vacation_days_taken = user.vacation_days_taken
         vacation_days_available = vacation_days - vacation_days_taken
         if start_date > end_date:
             flash(
@@ -65,6 +66,11 @@ def vacation():
             return redirect(url_for('views.vacation'))
         else:
             if dif <= vacation_days_available:
+                user = User.query.filter_by(id=session.get('user_id')).first()
+                req = Vacation(start_date=start_date,
+                               end_date=end_date, user=user)
+                db.session.add(req)
+                db.session.commit()
                 flash('Successfully handed in your vacation request',
                       category='success')
                 return redirect(url_for('views.vacation'))
@@ -72,7 +78,9 @@ def vacation():
                 flash(
                     'You selected a period that exceeds your available vacation days!', category='danger')
                 return redirect(url_for('views.vacation'))
-    return render_template('vacation.html', user=current_user)
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    requests = Vacation.query.filter_by(user_id=user.id).all()
+    return render_template('vacation.html', user=current_user, requests=requests)
 
 
 @views.route('/vacation_requests')
