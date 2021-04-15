@@ -24,8 +24,8 @@
                 <li class="nav-item"><a class="nav-link" id="home" href="/home">Home</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="wortime" href="/worktime">Worktime</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation" href="/vacation">Vacation</a></li>
-                <li class="nav-item"><a class="nav-item nav-link" id="statistics">Statistics</a></li>
-                {% if role_id == 2 or role_id == 3 %}
+                <li class="nav-item"><a class="nav-item nav-link" id="illness">Illness</a></li>
+                {% if roles_id == 2 or roles_id == 3 %}
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation-requests"
                         href="{{url_for('views.vacation_requests')}}">Vacation-Request</a></li>
                 {% endif %}

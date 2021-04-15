@@ -51,3 +51,38 @@ html {
     background: #3661ff;
 
 }
+
+.vacation-requests-personal {
+    background-color: #e4e4e4;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 1em 1em 30px #d3d3d3;
+}
+
+.individual-vacation-request {
+    background-color: #e4e4e4;
+    padding: 1em;
+    border-radius: 2em;
+    border: 1px #7e7e7e solid;
+    box-shadow: 1em 1em 30px #d3d3d3;
+    color: rgb(87, 87, 87);
+}
+
+.data-visualisation {
+    color: #00a6ff;
+    text-emphasis: filled #00a6ff;
+}
+
+.approved {
+    color: #00a6ff;
+    text-emphasis: filled #00a6ff;
+}
+
+.not-approved {
+    color: #ff0022;
+    text-emphasis: filled #ff0022;
+}
+
+.individual-request{
+    border-radius: 1em;
+}

@@ -11,44 +11,47 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-sm-9">
-            <form method="POST">
-                <div class="container">
-                    <div class="md-form mx-5 my-5">
-                        <label for="start_date">Please choose the date you want your vacation to start</label>
-                        <input type="date" name="start_date" id="start_date" class="form-control" required>
-                    </div>
-                    <div class="md-form mx-5 my-5">
-                        <label for="end_date">Please choose the date you want your vacation to end</label>
-                        <input type="date" name="end_date" id="end_date" class="form-control" required>
-                    </div>
-                    <div class="md-form mx-5 my-5">
-                        <button type="submit" class="btn btn-primary">Submit your vacation!</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-sm-3">
-            <div class="requests">
-                <table class="table">
-                    <thead>
-                        <tr>
 
-                            <th class="col">Start-Date</th>
-                            <th class="col">End-Date</th>
-                            <th class="col">Approved?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <div class="col-sm-9">
+            <div class="vacation-requests-personal">
+                <form method="POST">
+                    <div class="container">
+                        <div class="md-form mx-5 my-5">
+                            <label for="start_date">Please choose the date you want your vacation to start</label>
+                            <input type="date" name="start_date" id="start_date" class="form-control" required>
+                        </div>
+                        <div class="md-form mx-5 my-5">
+                            <label for="end_date">Please choose the date you want your vacation to end</label>
+                            <input type="date" name="end_date" id="end_date" class="form-control" required>
+                        </div>
+                        <div class="md-form mx-5 my-5">
+                            <button type="submit" class="btn btn-primary">Submit your vacation!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="vacation-requests-personal">
+                <div class="content-section">
+                    <h3>Your vacation requests</h3>
+                    <p class='text-muted'>
+                        You can withdraw your vacation requests one week before the vacation begins.
+                    </p>
+                    <ul class="list-group">
                         {% for request in requests %}
-                        <tr>
-                            <td>{{request.start_date}}</td>
-                            <td>{{request.end_date}}</td>
-                            <td>{{request.approved}}</td>
-                        </tr>
+                        <li class="list-group-item list-group-item-light individual-request">
+                            Start date: <strong>{{request.start_date}}</strong>
+                            <br>
+                            End date: <strong>{{request.end_date}}</strong>
+                            <br>
+                            Approved: <strong>{{request.approved}}</strong>
+                        </li>
                         {% endfor %}
-                    </tbody>
-                </table>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>

@@ -3,10 +3,52 @@
 {% block title %}Home{% endblock title %}
 
 {% block page_header %}
-    <h3>Hallo, {{full_name}}</h3>
+<h3>Hallo, {{full_name}}</h3>
+<br>
 {% endblock page_header %}
 
 {% block content %}
 <div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="vacation-requests-personal">
+                <h4>Work-Statistics</h4>
+                <p>
+                    Target Hours: <span class="data-visualisation"><strong>
+                            {{user_data.target_hours}}</strong></span><br>
+                    Worked Hours: <span
+                        class="data-visualisation"><strong>{{user_data.worked_hours}}</strong></span><br>
+                    Flex Time: <span class="data-visualisation"><strong>{{user_data.flex_time}}</strong></span> Days<br>
+                    Time Balance: <span
+                        class="data-visualisation"><strong>{{user_data.worked_hours-hours_till_today}}</strong></span>
+                    <br>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="vacation-requests-personal">
+                <h4>Booked-Vacation</h4>
+                <ul class="list-group">
+                    {% for request in requests %}
+                    {% if request.approved == True %}
+                    <li class="list-group-item list-group-item-light individual-vacation-request">
+                        Start date: <strong><span class="data-visualisation">{{request.start_date}}</span></strong>
+                        <br>
+                        End date: <strong><span class="data-visualisation">{{request.end_date}}</span></strong>
+                        <br>
+                    </li>
+                    {% endif %}
+
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="vacation-requests-personal">
+                <h3>TEST</h3>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

@@ -23,12 +23,9 @@ Jinja2==2.11.3
 lazy-object-proxy==1.6.0
 MarkupSafe==1.1.1
 mccabe==0.6.1
+numpy==1.20.2
 psycopg2==2.8.6
 pycodestyle==2.7.0
-pylint==2.7.4
-pylint-flask==0.6
-pylint-flask-sqlalchemy==0.2.0
-pylint-plugin-utils==0.6
 requests==2.25.1
 SQLAlchemy==1.4.5
 toml==0.10.2

@@ -7,7 +7,7 @@ from flask import render_template, session, redirect, url_for, request, Blueprin
 from flask_login import login_user, login_required, logout_user, current_user
 
 # Local imports
-from .models import User
+from .models import User, Role
 
 
 auth = Blueprint('auth', __name__)
@@ -29,13 +29,14 @@ def login():
                 login_user(user)
                 session['full_name'] = user.full_name
                 session['user_id'] = user.id
+                session['roles_id'] = user.roles_id
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again', category='danger')
         else:
             flash('Email does not exist.', category='danger')
 
-    return render_template('login.html', user=current_user, role_id=session.get('role_id'))
+    return render_template('login.html', user=current_user, roles_id=session.get('roles_id'))
 
 
 @auth.route('/logout')

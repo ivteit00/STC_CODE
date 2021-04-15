@@ -20,7 +20,12 @@ views = Blueprint('views', __name__)
 @views.route('/home')
 @login_required
 def home():
-    return render_template('home.html', full_name=session.get('full_name'), user=current_user, role_id=session.get('role_id'))
+    user = User.query.filter_by(id=session.get('user_id')).first()
+    today = date.today()
+    first_date = date.today().replace(day=1)
+    hours_till_today = get_workdays(first_date, today) * 8
+    requests = Vacation.query.filter_by(user_id=user.id).all()
+    return render_template('home.html', full_name=session.get('full_name'), user=current_user, roles_id=session.get('roles_id'), user_data=user, hours_till_today=hours_till_today, requests=requests)
 
 
 @views.route('/worktime', methods=['GET', 'POST'])
@@ -43,7 +48,7 @@ def worktime():
         print(worktime_in_minutes, "minutes")
         print(worktime_in_hours, "hours")
 
-    return render_template('worktime.html', user=current_user, role_id=session.get('role_id'))
+    return render_template('worktime.html', user=current_user, roles_id=session.get('roles_id'))
 
 
 @views.route('/vacation', methods=['GET', 'POST'])
@@ -80,7 +85,7 @@ def vacation():
                 return redirect(url_for('views.vacation'))
     user = User.query.filter_by(id=session.get('user_id')).first()
     requests = Vacation.query.filter_by(user_id=user.id).all()
-    return render_template('vacation.html', user=current_user, requests=requests, role_id=session.get('role_id'))
+    return render_template('vacation.html', user=current_user, requests=requests, roles_id=session.get('roles_id'))
 
 
 @views.route('/vacation_requests')
@@ -88,7 +93,7 @@ def vacation():
 def vacation_requests():
     requests = Vacation.query.all()
     users = User.query.all()
-    return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, role_id=session.get('role_id'))
+    return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id'))
 
 
 def get_workdays(from_date: datetime, to_date: datetime):
