@@ -30,6 +30,13 @@
                     <td>{{request.start_date}}</td>
                     <td>{{request.end_date}}</td>
                     <td>{{request.approved}}</td>
+                    {% if request.approved == True %}
+                    <td><button class="btn btn-success" disabled>Accept</button></td>
+                    <td><button class="btn btn-danger" disabled>Reject</button></td>
+                    {% else %}
+                    <td><button class="btn btn-success">Accept</button></td>
+                    <td><button class="btn btn-danger">Reject</button></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
