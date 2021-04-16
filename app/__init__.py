@@ -21,9 +21,15 @@ def create_app():
     # Register all blueprints
     from .auth import auth
     from .views import views
+    from .worktime import work
+    from .vacation import vac
+    from .illness import ill
 
     app.register_blueprint(auth)
     app.register_blueprint(views)
+    app.register_blueprint(work)
+    app.register_blueprint(vac)
+    app.register_blueprint(ill)
 
     from .models import User
 

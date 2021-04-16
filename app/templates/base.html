@@ -24,15 +24,21 @@
                 <li class="nav-item"><a class="nav-link" id="home" href="/home">Home</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="wortime" href="/worktime">Worktime</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation" href="/vacation">Vacation</a></li>
-                <li class="nav-item"><a class="nav-item nav-link" id="illness">Illness</a></li>
                 {% if roles_id == 2 or roles_id == 3 %}
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation-requests"
-                        href="{{url_for('views.vacation_requests')}}">Vacation-Request</a></li>
+                        href="{{url_for('vac.vacation_requests')}}">Vacation Request</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-item nav-link" id="illness" href="/illness">Illness</a></li>
+
+                {% if roles_id == 3 %}
+                <li class="nav-iteml"><a href="{{url_for('ill.illness_cases')}}" class="nav-item nav-link">Illness
+                        Cases</a></li>
                 {% endif %}
                 {% else %}
                 <li class="nav-item"><a class="nav-item nav-link" id="login" href="{{url_for('auth.login')}}">Login</a>
                 </li>
                 {% endif %}
+
             </ul>
             {% if user.is_authenticated %}
             <span class="navbar-text">

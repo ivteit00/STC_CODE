@@ -1,0 +1,4 @@
+fälle:
+    1. Vacation angenommen
+    2. Vacation abgelehnt
+    3. 

@@ -5,6 +5,7 @@
 {% block page_header %}
 <h3>Hallo, {{full_name}}</h3>
 <br>
+
 {% endblock page_header %}
 
 {% block content %}
@@ -28,20 +29,22 @@
         </div>
         <div class="col-md-4">
             <div class="vacation-requests-personal">
-                <h4>Booked-Vacation</h4>
-                <ul class="list-group">
-                    {% for request in requests %}
-                    {% if request.approved == True %}
-                    <li class="list-group-item list-group-item-light individual-vacation-request">
-                        Start date: <strong><span class="data-visualisation">{{request.start_date}}</span></strong>
-                        <br>
-                        End date: <strong><span class="data-visualisation">{{request.end_date}}</span></strong>
-                        <br>
-                    </li>
-                    {% endif %}
+                <div class="content-section">
+                    <h4>Booked-Vacation</h4>
+                    <ul class="list-group">
+                        {% for request in requests %}
+                        {% if request.approved == True %}
+                        <li class="list-group-item list-group-item-light individual-vacation-request" style="border-radius: 1em; margin:5px 1em">
+                            Start date: <strong><span class="data-visualisation">{{request.start_date}}</span></strong>
+                            <br>
+                            End date: <strong><span class="data-visualisation">{{request.end_date}}</span></strong>
+                            <br>
+                        </li>
+                        {% endif %}
 
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="col-md-4">

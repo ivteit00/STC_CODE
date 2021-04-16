@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title  %}Illness notifications {% endblock title %}
+
+{% block page_header %}
+<h3>Illness cases</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="container">
+    <div class="vacation-requests-personal overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-limited">
+                <thead>
+                    <tr>
+                        <th class="row-sm">Worker-Name</th>
+                        <th class="row-sm">Worker-Id</th>
+                        <th class="row-sm">Start-Date</th>
+                        <th class="row-sm">End-Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for case in cases %}
+                    <tr>
+                        <td>{{User.query.filter_by(id=case.user_id).first().full_name}}</td>
+                        <td>{{User.query.filter_by(id=case.user_id).first().id}}</td>
+                        <td>{{case.start_date}}</td>
+                        <td>{{case.end_date}}</td>
+                        {% if case.approved == False %}
+                        <form method="POST">
+                            <td><button class="btn btn-success btn-sm" name="accept-button"
+                                    value="{{case.id}}">Accept</button>
+                            </td>
+                        </form>
+                        {% else %}
+                        <td><button class="btn btn-info btn-sm" disabled>Approved!</button></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,6 +1,5 @@
 # Standard libary imports
 from datetime import datetime, timedelta, date
-from functools import wraps
 import time
 
 # Third pary imports
@@ -8,7 +7,7 @@ from flask import render_template, session, redirect, url_for, request, Blueprin
 from flask_login import login_required, current_user
 
 # Local application imports
-from .models import User, Vacation
+from .models import User, Vacation, Illness
 from . import db
 
 
@@ -28,10 +27,11 @@ def home():
     return render_template('home.html', full_name=session.get('full_name'), user=current_user, roles_id=session.get('roles_id'), user_data=user, hours_till_today=hours_till_today, requests=requests)
 
 
-@views.route('/worktime', methods=['GET', 'POST'])
+"""@views.route('/worktime', methods=['GET', 'POST'])
 @login_required
 def worktime():
     if request.method == 'POST':
+
         start = request.form.get('start-time')
         end = request.form.get('end-time')
         breaktime = request.form.get('break-time')
@@ -41,16 +41,26 @@ def worktime():
         time_string = '{:02d}:{:02d}'.format(*divmod(int(breaktime), 60))
 
         break_time = datetime.strptime(time_string, '%H:%M').time()
+
         worktime_in_minutes = (end_time.hour-start_time.hour - break_time.hour) * \
             60 + (end_time.minute - start_time.minute - break_time.minute)
         worktime_in_hours = (end_time.hour-start_time.hour - break_time.hour) + \
             ((end_time.minute - start_time.minute - break_time.minute)/60)
-        print(worktime_in_minutes, "minutes")
-        print(worktime_in_hours, "hours")
+        if start_time > end_time or break_time < datetime.time(0) or worktime_in_minutes < 0:
+        flash('You have entered invalid values. Please check your input.',
+              category='danger')
+        return redirect(url_for('views.worktime'))
+
+        user = User.query.filter_by(id=session.get('user_id')).first()
+        user.worked_hours = user.worked_hours + worktime_in_hours
+        db.session.add(user)
+        db.session.commit()
+        flash('You successfully uploaded your worked hours.', category='success')
+        return redirect(url_for('views.worktime'))
 
     return render_template('worktime.html', user=current_user, roles_id=session.get('roles_id'))
-
-
+"""
+"""
 @views.route('/vacation', methods=['GET', 'POST'])
 @login_required
 def vacation():
@@ -76,7 +86,7 @@ def vacation():
                                end_date=end_date, user=user)
                 db.session.add(req)
                 db.session.commit()
-                flash('Successfully handed in your vacation request',
+                flash('Successfully handed in your vacation request.',
                       category='success')
                 return redirect(url_for('views.vacation'))
             else:
@@ -86,8 +96,9 @@ def vacation():
     user = User.query.filter_by(id=session.get('user_id')).first()
     requests = Vacation.query.filter_by(user_id=user.id).all()
     return render_template('vacation.html', user=current_user, requests=requests, roles_id=session.get('roles_id'))
+"""
 
-
+"""
 @views.route('/vacation_requests', methods=['GET', 'POST'])
 @login_required
 def vacation_requests():
@@ -98,15 +109,53 @@ def vacation_requests():
             req.approved = True
             db.session.add(req)
             db.session.commit()
+            flash('You successfully accepted the Vacation Request.',
+                  category='success')
             return redirect(url_for('views.vacation_requests'))
-
         elif request.form.get('reject-button'):
-            print('Rejected Vacation')
+            request_id = request.form.get('reject-button')
+            Vacation.query.filter_by(id=request_id).delete()
+            db.session.commit()
+            flash('You succesfully rejected the Vacation request. The employee is getting notified.', category='warning')
             return redirect(url_for('views.vacation_requests'))
 
     requests = Vacation.query.all()
     users = User.query.all()
     return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id'))
+"""
+"""
+@views.route('/illness', methods=['GET', 'POST'])
+@login_required
+def illness():
+    if request.method == 'POST':
+        start_date = datetime.strptime(
+            request.form.get('start_date'), '%Y-%m-%d')
+        end_date = datetime.strptime(
+            request.form.get('end_date'), '%Y-%m-%d')
+        user = User.query.filter_by(
+            id=session.get('user_id')).first()
+
+        ill = Illness(start_date=start_date, end_date=end_date, user=user)
+        db.session.add(ill)
+        db.session.commit()
+        flash('You successfully handed in your medical certificate.',
+              category='success')
+    return render_template('illness.html', user=current_user, roles_id=session.get('roles_id'))
+"""
+
+"""
+@views.route('/illness_cases', methods=['GET', 'POST'])
+@login_required
+def illness_cases():
+    if request.method == 'POST':
+        case_id = request.form.get('accept-button')
+        case = Illness.query.filter_by(id=case_id).first()
+        case.approved = True
+        db.session.add(case)
+        db.session.commit()
+    cases = Illness.query.all()
+    return render_template('illness_cases.html', user=current_user, roles_id=session.get('roles_id'), cases=cases, User=User)
+"""
 
 
 def get_workdays(from_date: datetime, to_date: datetime):

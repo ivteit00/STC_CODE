@@ -1,6 +1,5 @@
 # Standard libary imports
 from datetime import datetime
-from functools import wraps
 
 # Third pary imports
 from flask import render_template, session, redirect, url_for, request, Blueprint, flash
@@ -25,14 +24,14 @@ def login():
 
         if user:
             if password == user.password:
-                flash('Logged in successfully', category='success')
+                flash('Logged in successfully.', category='success')
                 login_user(user)
                 session['full_name'] = user.full_name
                 session['user_id'] = user.id
                 session['roles_id'] = user.roles_id
                 return redirect(url_for('views.home'))
             else:
-                flash('Incorrect password, try again', category='danger')
+                flash('Incorrect password, try again.', category='danger')
         else:
             flash('Email does not exist.', category='danger')
 
