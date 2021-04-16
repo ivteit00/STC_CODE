@@ -15,6 +15,7 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th class="row-sm">Vacation Request ID</th>
                     <th class="row-md">Worker-Name</th>
                     <th class="row-md">Worker-Id</th>
                     <th class="row-md">Start-Date</th>
@@ -25,6 +26,7 @@
             <tbody>
                 {% for request in requests %}
                 <tr>
+                    <td>{{request.id}}</td>
                     <td>{{User.query.filter_by(id=request.user_id).first().full_name}}</td>
                     <td>{{User.query.filter_by(id=request.user_id).first().id}}</td>
                     <td>{{request.start_date}}</td>
@@ -34,8 +36,12 @@
                     <td><button class="btn btn-success" disabled>Accept</button></td>
                     <td><button class="btn btn-danger" disabled>Reject</button></td>
                     {% else %}
-                    <td><button class="btn btn-success">Accept</button></td>
-                    <td><button class="btn btn-danger">Reject</button></td>
+                    <form method="POST">
+                        <td><button class="btn btn-success" name="accept-button" value="{{request.id}}">Accept</button>
+                        </td>
+                        <td><button class="btn btn-danger" name="reject-button" value="{{request.id}}">Reject</button>
+                        </td>
+                    </form>
                     {% endif %}
                 </tr>
                 {% endfor %}

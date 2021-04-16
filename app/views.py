@@ -88,9 +88,22 @@ def vacation():
     return render_template('vacation.html', user=current_user, requests=requests, roles_id=session.get('roles_id'))
 
 
-@views.route('/vacation_requests')
+@views.route('/vacation_requests', methods=['GET', 'POST'])
 @login_required
 def vacation_requests():
+    if request.method == 'POST':
+        if request.form.get('accept-button'):
+            request_id = request.form.get('accept-button')
+            req = Vacation.query.filter_by(id=request_id).first()
+            req.approved = True
+            db.session.add(req)
+            db.session.commit()
+            return redirect(url_for('views.vacation_requests'))
+
+        elif request.form.get('reject-button'):
+            print('Rejected Vacation')
+            return redirect(url_for('views.vacation_requests'))
+
     requests = Vacation.query.all()
     users = User.query.all()
     return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id'))
