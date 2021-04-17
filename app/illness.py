@@ -26,7 +26,6 @@ def illness():
             flash(
                 'You selected a start date before your end date! Please try again.', category='danger')
             return redirect(url_for('ill.illness'))
-        
         user = User.query.filter_by(
             id=session.get('user_id')).first()
 
@@ -35,8 +34,8 @@ def illness():
         db.session.commit()
         flash('You successfully handed in your medical certificate.',
               category='success')
+        return redirect(url_for('ill.illness'))
     return render_template('illness.html', user=current_user, roles_id=session.get('roles_id'))
-
 
 
 @ill.route('/illness_cases', methods=['GET', 'POST'])
@@ -46,7 +45,9 @@ def illness_cases():
         case_id = request.form.get('accept-button')
         case = Illness.query.filter_by(id=case_id).first()
         case.approved = True
+
         db.session.add(case)
         db.session.commit()
+        return redirect(url_for('ill.illness_cases'))
     cases = Illness.query.all()
     return render_template('illness_cases.html', user=current_user, roles_id=session.get('roles_id'), cases=cases, User=User)

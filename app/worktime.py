@@ -40,7 +40,7 @@ def worktime():
         if calculate_worktime_minutes(start_minutes=start_minutes, end_minutes=end_minutes, break_minutes=break_minutes) < 0:
             error = True
         if break_minutes < 30:
-            flash('Your break time is to low. Please resubmit your Worktime later and make a longer break :) ',
+            flash('Your break time is to low. Please resubmit your Worktime later and take a longer break :) ',
                   category='warning')
             return redirect(url_for('worktime.worktime'))
         if error:
@@ -49,7 +49,18 @@ def worktime():
             return redirect(url_for('worktime.worktime'))
         else:
             user = User.query.filter_by(id=session.get('user_id')).first()
-            user.worked_hours = user.worked_hours + w
+            worked_hours = (end_minutes-start_minutes-break_minutes) / 60
+
+            user.worked_hours += worked_hours
+            db.session.add(user)
+            db.session.commit()
+            flash('You have successfully uploaded your worktime. Enjoy your day!',
+                  category='success')
+            return redirect(url_for('worktime.worktime'))
+
+            # TODO finishe method: worktime()
+# TODO change database model and corresponding functions
+# TODO implement notifications
 
     return render_template('worktime.html', user=current_user, roles_id=session.get('roles_id'))
 

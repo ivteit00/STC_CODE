@@ -16,6 +16,9 @@ def create_app():
     app.config['SECRET_KEY'] = '9QxEIB84nNKgxjz9ahPjM2HRtwrERAli4PGtjRjV'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['DEBUG'] = True
+    app.config['TESTING'] = False
+
     db.init_app(app)
 
     # Register all blueprints

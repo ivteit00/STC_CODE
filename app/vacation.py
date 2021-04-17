@@ -9,6 +9,7 @@ from flask_login import login_required, current_user
 # Local application imports
 from .models import User, Vacation, Illness
 from . import db
+from .functions import get_workdays
 
 
 vac = Blueprint('vac', __name__)
@@ -28,15 +29,21 @@ def vacation():
         vacation_days = user.vacation_days
         vacation_days_taken = user.vacation_days_taken
         vacation_days_available = vacation_days - vacation_days_taken
+
         if start_date > end_date:
             flash(
                 'You selected a start date before your end date! Please try again.', category='danger')
+            return redirect(url_for('vac.vacation'))
+        elif start_date.date() <= date.today():
+            flash('You tried to create a vacation requests which starts at a passed date. Please try again.', category='danger')
             return redirect(url_for('vac.vacation'))
         else:
             if dif <= vacation_days_available:
                 user = User.query.filter_by(id=session.get('user_id')).first()
                 req = Vacation(start_date=start_date,
                                end_date=end_date, user=user)
+                user.vacation_days_taken += dif
+                db.session.add(user)
                 db.session.add(req)
                 db.session.commit()
                 flash('Successfully handed in your vacation request.',
@@ -74,18 +81,3 @@ def vacation_requests():
     requests = Vacation.query.all()
     users = User.query.all()
     return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id'))
-
-
-def get_workdays(from_date: datetime, to_date: datetime):
-    # if the start date is on a weekend, forward the date to next Monday
-    if from_date.weekday() > 4:
-        from_date = from_date + timedelta(days=7 - from_date.weekday())
-    # if the end date is on a weekend, rewind the date to the previous Friday
-    if to_date.weekday() > 4:
-        to_date = to_date - timedelta(days=to_date.weekday() - 4)
-    if from_date > to_date:
-        return 0
-    # that makes the difference easy, no remainders etc
-    diff_days = (to_date - from_date).days + 1
-    weeks = int(diff_days / 7)
-    return weeks * 5 + (to_date.weekday() - from_date.weekday()) + 1

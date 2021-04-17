@@ -30,11 +30,24 @@
         <div class="col-md-4">
             <div class="vacation-requests-personal">
                 <div class="content-section">
+                    <h4>Vacation-Statistics</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                            style="border-radius: 1em; margin:5px 1em">
+                            Vacation days taken: <strong><span
+                                    class="data-visualisation">{{user_data.vacation_days_taken}}</span> </strong> <br>
+                            Vacation days available: <strong>
+                                <span class="data-visualisation">{{user_data.vacation_days - user_data.vacation_days_taken}}</span></strong>
+                    </ul>
+                </div>
+                <br>
+                <div class="content-section">
                     <h4>Booked-Vacation</h4>
                     <ul class="list-group">
                         {% for request in requests %}
                         {% if request.approved == True %}
-                        <li class="list-group-item list-group-item-light individual-vacation-request" style="border-radius: 1em; margin:5px 1em">
+                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                            style="border-radius: 1em; margin:5px 1em">
                             Start date: <strong><span class="data-visualisation">{{request.start_date}}</span></strong>
                             <br>
                             End date: <strong><span class="data-visualisation">{{request.end_date}}</span></strong>
@@ -44,7 +57,12 @@
 
                         {% endfor %}
                     </ul>
+
                 </div>
+                <br>
+
+
+
             </div>
         </div>
         <div class="col-md-4">
