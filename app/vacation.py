@@ -9,7 +9,7 @@ from flask_login import login_required, current_user
 # Local application imports
 from .models import User, Vacation, Illness
 from . import db
-from .functions import get_workdays
+from .functions import get_workdays, chef_or_hr_role_required
 
 
 vac = Blueprint('vac', __name__)
@@ -60,6 +60,7 @@ def vacation():
 
 @vac.route('/vacation_requests', methods=['GET', 'POST'])
 @login_required
+@chef_or_hr_role_required
 def vacation_requests():
     if request.method == 'POST':
         if request.form.get('accept-button'):

@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 
 # Local application imports
 from .models import User, Vacation, Illness
+from .functions import hr_role_required
 from . import db
 
 
@@ -40,6 +41,7 @@ def illness():
 
 @ill.route('/illness_cases', methods=['GET', 'POST'])
 @login_required
+@hr_role_required
 def illness_cases():
     if request.method == 'POST':
         case_id = request.form.get('accept-button')

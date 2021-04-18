@@ -8,14 +8,21 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     full_name = db.Column(db.String(150))
+
     target_hours = db.Column(db.Float, default=160)
     worked_hours = db.Column(db.Float, default=0)
     flex_time = db.Column(db.Float, default=0)
+    worked_hours_approved = db.Column(db.Boolean, default=False)
+
     vacation_days = db.Column(db.Integer, default=30)
     vacation_days_taken = db.Column(db.Integer, default=0)
+
     roles_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+
     vacation_requests = db.relationship('Vacation', backref='user')
+
     illness = db.relationship('Illness', backref='user')
+
 
     def __repr__(self):
         return '<User %r>' % self.full_name

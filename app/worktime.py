@@ -8,6 +8,7 @@ from flask_login import login_required, current_user
 
 # Local application imports
 from .models import User, Vacation, Illness
+from .functions import chef_role_required, get_workdays
 from . import db
 
 
@@ -58,11 +59,36 @@ def worktime():
                   category='success')
             return redirect(url_for('worktime.worktime'))
 
-            # TODO finishe method: worktime()
-# TODO change database model and corresponding functions
-# TODO implement notifications
-
     return render_template('worktime.html', user=current_user, roles_id=session.get('roles_id'))
+
+
+@work.route('/approve_worktime', methods=['GET', 'POST'])
+@chef_role_required
+@login_required
+def approve_worktime():
+    if request.method == 'POST':
+        if request.form.get('accept-button'):
+            user_id = request.form.get('accept-button')
+            user = User.query.filter_by(id=user_id).first()
+            user_full_name = user.full_name
+            user.worked_hours_approved = True
+            db.session.add(user)
+            db.session.commit()
+            flash(('You successfully approved the worked hours of ' +
+                  user_full_name), category='success')
+            return redirect(url_for('worktime.approve_worktime'))
+        elif request.form.get('reject-button'):
+            user_id = request.form.get('reject-button')
+            user = User.query.filter_by(id=user_id).first()
+            user_full_name = user.full_name
+            flash(('You rejected the worktime of ' + user_full_name +
+                  '. She/He will be notified.'), category='warning')
+
+    users = User.query.all()
+    today = date.today()
+    first_date = date.today().replace(day=1)
+    hours_till_today = get_workdays(first_date, today) * 8
+    return render_template('approve_worktime.html', user=current_user, roles_id=session.get('roles_id'), users=users, User=User, hours_till_today=hours_till_today)
 
 
 def calculate_minutes(time: datetime.time):
