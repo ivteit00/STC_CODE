@@ -21,7 +21,7 @@
                         <th class="row-sm">Worker-Id</th>
                         <th class="row-sm">Start-Date</th>
                         <th class="row-sm">End-Date</th>
-                        <th class="row-sm">Approved?</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -32,10 +32,10 @@
                         <td>{{User.query.filter_by(id=request.user_id).first().id}}</td>
                         <td>{{request.start_date}}</td>
                         <td>{{request.end_date}}</td>
-                        <td>{{request.approved}}</td>
+
                         {% if request.approved == True %}
                         <td><button class="btn btn-info btn-sm" disabled>Approved!</button></td>
-                       
+
                         {% else %}
                         <form method="POST">
                             <td><button class="btn btn-success btn-sm" name="accept-button"

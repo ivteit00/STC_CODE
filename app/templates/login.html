@@ -4,13 +4,11 @@
 {% block title %}Login{% endblock title %}
 
 {% block content %}
-
 <form method="POST">
-    <div class="container smaller-container">
+    <div class="container">
         <img src="{{url_for('static', filename='STC.png')}}" alt="Logo" class="logo">
-
-        <div class="d-flex justify-content-center" >
-            <div class="jumbotron">
+        <div class="d-flex justify-content-center">
+            <div class="vacation-requests-personal">
                 <div class=" form-group">
                     <label for="email-id">E-Mail</label>
                     <input type="text" class="form-control" id="email-id" placeholder="E-Mail" name="email">

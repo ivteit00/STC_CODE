@@ -1,10 +1,8 @@
 from flask import Flask, render_template
-from flask_bootstrap import Bootstrap
-from flask_moment import Moment
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_script import Shell
+
 from os import path
 
 from config import config

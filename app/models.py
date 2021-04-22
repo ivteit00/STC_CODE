@@ -42,6 +42,8 @@ class Vacation(db.Model):
     end_date = db.Column(db.Date)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     approved = db.Column(db.Boolean, default=False)
+    notify = db.Column(db.Boolean, default=False)
+    rejected = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Vacation %r>' % self.id
@@ -53,6 +55,7 @@ class Illness (db.Model):
     end_date = db.Column(db.Date)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     approved = db.Column(db.Boolean, default=False)
+    notify = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Illness %r>' % self.user_id

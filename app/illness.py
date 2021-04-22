@@ -47,6 +47,7 @@ def illness_cases():
         case_id = request.form.get('accept-button')
         case = Illness.query.filter_by(id=case_id).first()
         case.approved = True
+        case.notify = True
 
         db.session.add(case)
         db.session.commit()

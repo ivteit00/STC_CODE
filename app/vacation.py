@@ -66,10 +66,12 @@ def vacation_requests():
             request_id = request.form.get('accept-button')
             req = Vacation.query.filter_by(id=request_id).first()
             req.approved = True
+            req.notify = True
             user = User.query.filter_by(id=req.user_id).first()
             # TODO only reduce vacation_day_taken when vacation request is accepted
             vacation_length = networkdays(req.start_date, req.end_date)
             user.vacation_days_taken += vacation_length
+            
             db.session.add_all([req, user])
             db.session.commit()
             flash('You successfully accepted the Vacation Request.',
@@ -78,6 +80,7 @@ def vacation_requests():
         elif request.form.get('reject-button'):
             request_id = request.form.get('reject-button')
             Vacation.query.filter_by(id=request_id).delete()
+            # TODO Implement either: Notification or Display rejection of request
             db.session.commit()
             flash('You succesfully rejected the Vacation request. The employee is getting notified.', category='warning')
             return redirect(url_for('vac.vacation_requests'))

@@ -74,6 +74,7 @@ def approve_worktime():
             user = User.query.filter_by(id=user_id).first()
             user_full_name = user.full_name
             user.worked_hours_approved = True
+            user.notify = True
             db.session.add(user)
             db.session.commit()
             flash(('You successfully approved the worked hours of ' +

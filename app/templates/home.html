@@ -37,7 +37,8 @@
                             Vacation days taken: <strong><span
                                     class="data-visualisation">{{user_data.vacation_days_taken}}</span> </strong> <br>
                             Vacation days available: <strong>
-                                <span class="data-visualisation">{{user_data.vacation_days - user_data.vacation_days_taken}}</span></strong>
+                                <span
+                                    class="data-visualisation">{{user_data.vacation_days - user_data.vacation_days_taken}}</span></strong>
                     </ul>
                 </div>
                 <br>
@@ -67,9 +68,51 @@
         </div>
         <div class="col-md-4">
             <div class="vacation-requests-personal">
-                <h3>TEST</h3>
+                <div class="content-section">
+                    <h4>Notifications</h4>
+                    {% if requests%}
+                    <label for="accepted-requests">Accepted Requests</label>
+                    {% endif %}
+                    <ul class="list-group" id="accepted-requests">
+                        {% for request in requests %}
+                        {% if request.approved == True and request.notify == True %}
+                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                            style="border-radius: 1em; margin:5px 1em">
+                            <form method="POST">
+                                <button type="submit" class="close" name="close-vacation"
+                                    value="{{request.id}}"><span>&times;</span></button>
+                            </form>
+                            Start date: <strong><span class="data-visualisation">{{request.start_date}}</span></strong>
+                            <br>
+                            End date: <strong><span class="data-visualisation">{{request.end_date}}</span></strong>
+                            <br>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <br>
+                    {% if cases %}
+                    <label for="approved-illness">Approved Illness</label>
+                    {% endif %}
+                    <ul class="list-group" id="accepted-requests">
+                        {% for case in cases %}
+                        {% if case.approved == True and case.notify == True %}
+                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                            style="border-radius: 1em; margin:5px 1em">
+                            <form method="POST">
+                                <button type="submit" class="close" name="close-case"
+                                    value="{{case.id}}"><span>&times;</span></button>
+                            </form>
+                            Start date: <strong><span class="data-visualisation">{{case.start_date}}</span></strong>
+                            <br>
+                            End date: <strong><span class="data-visualisation">{{case.end_date}}</span></strong>
+                            <br>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock content %}
+    {% endblock content %}
