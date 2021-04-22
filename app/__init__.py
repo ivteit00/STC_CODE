@@ -7,18 +7,15 @@ from flask_login import LoginManager
 from flask_script import Shell
 from os import path
 
+from config import config
+
 db = SQLAlchemy()
 DB_NAME = 'database.db'
 
 
-def create_app():
+def create_app(config_name):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = '9QxEIB84nNKgxjz9ahPjM2HRtwrERAli4PGtjRjV'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['DEBUG'] = True
-    app.config['TESTING'] = False
-
+    app.config.from_object(config[config_name])
     db.init_app(app)
 
     # Register all blueprints

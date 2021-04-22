@@ -24,6 +24,11 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" id="home" href="/home">Home</a></li>
                 <li class="nav-item"><a class="nav-item nav-link" id="wortime" href="/worktime">Worktime</a></li>
+                {% if roles_id == 2 %}
+                <li class="nav-item"><a class="nav-item nav-link" id="approve-worktime" href="/approve_worktime">Approve
+                        Worktime</a>
+                </li>
+                {% endif %}
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation" href="/vacation">Vacation</a></li>
                 {% if roles_id == 2 or roles_id == 3 %}
                 <li class="nav-item"><a class="nav-item nav-link" id="vacation-requests"

@@ -23,7 +23,6 @@ class User(db.Model, UserMixin):
 
     illness = db.relationship('Illness', backref='user')
 
-
     def __repr__(self):
         return '<User %r>' % self.full_name
 

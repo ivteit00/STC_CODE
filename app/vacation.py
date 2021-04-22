@@ -5,11 +5,12 @@ import time
 # Third pary imports
 from flask import render_template, session, redirect, url_for, request, Blueprint, flash
 from flask_login import login_required, current_user
+from workdays import networkdays
 
 # Local application imports
 from .models import User, Vacation, Illness
 from . import db
-from .functions import get_workdays, chef_or_hr_role_required
+from .functions import chef_or_hr_role_required
 
 
 vac = Blueprint('vac', __name__)
@@ -23,7 +24,7 @@ def vacation():
             request.form.get('start_date'), '%Y-%m-%d')
         end_date = datetime.strptime(
             request.form.get('end_date'), '%Y-%m-%d')
-        dif = get_workdays(start_date, end_date)
+        dif = networkdays(start_date, end_date)
         user = User.query.filter_by(
             id=session.get('user_id')).first()
         vacation_days = user.vacation_days
@@ -42,8 +43,6 @@ def vacation():
                 user = User.query.filter_by(id=session.get('user_id')).first()
                 req = Vacation(start_date=start_date,
                                end_date=end_date, user=user)
-                user.vacation_days_taken += dif
-                db.session.add(user)
                 db.session.add(req)
                 db.session.commit()
                 flash('Successfully handed in your vacation request.',
@@ -67,7 +66,11 @@ def vacation_requests():
             request_id = request.form.get('accept-button')
             req = Vacation.query.filter_by(id=request_id).first()
             req.approved = True
-            db.session.add(req)
+            user = User.query.filter_by(id=req.user_id).first()
+            # TODO only reduce vacation_day_taken when vacation request is accepted
+            vacation_length = networkdays(req.start_date, req.end_date)
+            user.vacation_days_taken += vacation_length
+            db.session.add_all([req, user])
             db.session.commit()
             flash('You successfully accepted the Vacation Request.',
                   category='success')

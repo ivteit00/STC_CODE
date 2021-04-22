@@ -5,10 +5,12 @@ import time
 # Third pary imports
 from flask import render_template, session, redirect, url_for, request, Blueprint, flash
 from flask_login import login_required, current_user
+from workdays import networkdays
+
 
 # Local application imports
 from .models import User, Vacation, Illness
-from .functions import chef_role_required, get_workdays
+from .functions import chef_role_required
 from . import db
 
 
@@ -87,7 +89,7 @@ def approve_worktime():
     users = User.query.all()
     today = date.today()
     first_date = date.today().replace(day=1)
-    hours_till_today = get_workdays(first_date, today) * 8
+    hours_till_today = networkdays(first_date, today) * 8
     return render_template('approve_worktime.html', user=current_user, roles_id=session.get('roles_id'), users=users, User=User, hours_till_today=hours_till_today)
 
 
