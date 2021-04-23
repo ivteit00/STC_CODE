@@ -2,12 +2,7 @@ body,
 html {
     height: 100%;
     background-color: #fcfcfc;
-    font-family: 'Microsoft YaHei UI', Courier, monospace;
-}
-
-
-.center {
-    margin-top: 1%;
+    font-family: "Microsoft YaHei UI", Courier, monospace;
 }
 
 .logo {
@@ -18,24 +13,12 @@ html {
     align-items: center;
     position: relative;
     display: block;
-
 }
 
-
-.img-class {
-    width: 200px;
-    height: 200px;
-}
-
-.login-center {
-    width: 300px;
-    height: 600px;
-
-}
 
 
 .button-small {
-    background: #1749FF;
+    background: #007bff;
     color: white;
     float: left;
     border-radius: 57px;
@@ -46,19 +29,17 @@ html {
 
 .button-small:hover {
     background: #3661ff;
-
 }
 
-.vacation-requests-personal {
+.content-box {
     background-color: #e4e4e4;
     padding: 1em;
     border-radius: 1em;
     box-shadow: 1em 1em 30px #d3d3d3;
     position: relative;
-
 }
 
-.individual-vacation-request {
+.inner-container {
     background-color: #e4e4e4;
     padding: 1em;
     border-radius: 2em;
@@ -72,7 +53,7 @@ html {
     text-emphasis: filled #00a6ff;
 }
 
-.approved {
+.a {
     color: #00a6ff;
     text-emphasis: filled #00a6ff;
 }
@@ -86,6 +67,6 @@ html {
     border-radius: 1em;
 }
 
-.vacation-requests-personal .table-limited {
+.content-box .table-limited {
     overflow: hidden;
 }

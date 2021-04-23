@@ -17,7 +17,7 @@ ill = Blueprint('ill', __name__)
 
 @ill.route('/illness', methods=['GET', 'POST'])
 @login_required
-def illness():
+def illness() -> 'html':
     if request.method == 'POST':
         start_date = datetime.strptime(
             request.form.get('start_date'), '%Y-%m-%d')
@@ -42,7 +42,7 @@ def illness():
 @ill.route('/illness_cases', methods=['GET', 'POST'])
 @login_required
 @hr_role_required
-def illness_cases():
+def illness_cases() -> 'html':
     if request.method == 'POST':
         case_id = request.form.get('accept-button')
         case = Illness.query.filter_by(id=case_id).first()

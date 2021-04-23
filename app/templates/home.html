@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="vacation-requests-personal">
+            <div class="content-box">
                 <h4>Work-Statistics</h4>
                 <p>
                     Target Hours: <span class="data-visualisation"><strong>
@@ -28,11 +28,11 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="vacation-requests-personal">
+            <div class="content-box">
                 <div class="content-section">
                     <h4>Vacation-Statistics</h4>
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                        <li class="list-group-item list-group-item-light inner-container"
                             style="border-radius: 1em; margin:5px 1em">
                             Vacation days taken: <strong><span
                                     class="data-visualisation">{{user_data.vacation_days_taken}}</span> </strong> <br>
@@ -47,7 +47,7 @@
                     <ul class="list-group">
                         {% for request in requests %}
                         {% if request.approved == True %}
-                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                        <li class="list-group-item list-group-item-light inner-container"
                             style="border-radius: 1em; margin:5px 1em">
                             Start date: <strong><span class="data-visualisation">{{request.start_date}}</span></strong>
                             <br>
@@ -67,16 +67,45 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="vacation-requests-personal">
+            <div class="content-box">
+
                 <div class="content-section">
                     <h4>Notifications</h4>
-                    {% if requests%}
+
+
+
+                    {% if notifications %}
+                    <label for="notifications">Notifications</label>
+                    {% endif %}
+                    <ul class="list-group" id="notifications">
+                        {% for noti in notifications %}
+                        <li class="list-group-item list-group-item-light inner-container"
+                            style="border-radius: 1em; margin:5px 1em">
+                            <form method="POST">
+                                <button type="submit" class="close" name="close-notification"
+                                    value="{{noti.id}}"><span>&times;</span></button>
+                            </form>
+                            {{noti.message}}
+                        </li>
+                        {% endfor %}
+                        <br>
+                    </ul>
+
+
+
+
+
+
+
+
+
+                    {% if requests %}
                     <label for="accepted-requests">Accepted Requests</label>
                     {% endif %}
                     <ul class="list-group" id="accepted-requests">
                         {% for request in requests %}
-                        {% if request.approved == True and request.notify == True %}
-                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                        {% if request.notify == True %}
+                        <li class="list-group-item list-group-item-light inner-container"
                             style="border-radius: 1em; margin:5px 1em">
                             <form method="POST">
                                 <button type="submit" class="close" name="close-vacation"
@@ -97,7 +126,7 @@
                     <ul class="list-group" id="accepted-requests">
                         {% for case in cases %}
                         {% if case.approved == True and case.notify == True %}
-                        <li class="list-group-item list-group-item-light individual-vacation-request"
+                        <li class="list-group-item list-group-item-light inner-container"
                             style="border-radius: 1em; margin:5px 1em">
                             <form method="POST">
                                 <button type="submit" class="close" name="close-case"

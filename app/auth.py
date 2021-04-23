@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 
 
 @auth.route('/', methods=['GET', 'POST'])
-def login():
+def login() -> 'html':
     """Log-In-viewfunction"""
     logout_user()
     if request.method == 'POST':
@@ -39,6 +39,6 @@ def login():
 
 @auth.route('/logout')
 @login_required
-def logout():
+def logout() -> 'redirect':
     logout_user()
     return redirect(url_for('auth.login'))
