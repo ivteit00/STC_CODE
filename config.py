@@ -5,7 +5,6 @@ DB_NAME = 'database.db'
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SECRET_KEY = '9QxEIB84nNKgxjz9ahPjM2HRtwrERAli4PGtjRjV'
     SQLALCHEMY_DATABASE_URI = f'sqlite:///{DB_NAME}'
