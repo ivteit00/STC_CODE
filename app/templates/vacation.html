@@ -30,6 +30,27 @@
                     </div>
                 </form>
             </div>
+            <br>
+            <br>
+            <div class="content-box">
+                <h4>Accepted Vacation</h4>
+                <div class="row">
+                    {% for request in requests %}
+                    {% if request.approved == True %}
+                    <div class="col-6 col-sm-4 inner-container" style="border-radius: 1em; margin:5px 1em">
+                        Start date: <strong>{{request.start_date}}</strong>
+                        <br>
+                        End date: <strong>{{request.end_date}}</strong>
+                        <br>
+                        Approved: <strong>{{request.approved}}</strong>
+                    </div>
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <br>
+            <br>
         </div>
 
         <div class="col-sm-3">
@@ -42,8 +63,7 @@
                     <ul class="list-group">
                         {% for request in requests %}
                         {% if request.approved == False %}
-                        <li class="list-group-item list-group-item-light individual-request"
-                            style="border-radius: 1em; margin:5px 1em">
+                        <li class="list-group-item list-group-item-light " style="border-radius: 1em; margin:5px 1em">
                             Start date: <strong>{{request.start_date}}</strong>
                             <br>
                             End date: <strong>{{request.end_date}}</strong>
@@ -53,29 +73,6 @@
                         {% endif %}
                         {% endfor %}
                     </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <div class="row">
-        <div class="col-sm-9">
-            <div class="content-box">
-                <h4>Accepted Vacation</h4>
-                <div class="row">
-                    {% for request in requests %}
-                    {% if request.approved == True %}
-                    <div class="col-6 col-sm-4 vacation-requests-personal" style="border-radius: 1em; margin:5px 1em">
-                        Start date: <strong>{{request.start_date}}</strong>
-                        <br>
-                        End date: <strong>{{request.end_date}}</strong>
-                        <br>
-                        Approved: <strong>{{request.approved}}</strong>
-                    </div>
-
-                    {% endif %}
-                    {% endfor %}
                 </div>
             </div>
         </div>

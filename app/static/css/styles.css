@@ -15,8 +15,6 @@ html {
     display: block;
 }
 
-
-
 .button-small {
     background: #007bff;
     color: white;
@@ -37,6 +35,7 @@ html {
     border-radius: 1em;
     box-shadow: 1em 1em 30px #d3d3d3;
     position: relative;
+    margin: 1em;
 }
 
 .inner-container {
@@ -51,20 +50,6 @@ html {
 .data-visualisation {
     color: #00a6ff;
     text-emphasis: filled #00a6ff;
-}
-
-.a {
-    color: #00a6ff;
-    text-emphasis: filled #00a6ff;
-}
-
-.not-approved {
-    color: #ff0022;
-    text-emphasis: filled #ff0022;
-}
-
-.individual-request {
-    border-radius: 1em;
 }
 
 .content-box .table-limited {
