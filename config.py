@@ -2,6 +2,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 DB_NAME = 'database.db'
+DB_TESTING = 'testing.db'
 
 
 class Config:
@@ -17,10 +18,14 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{DB_NAME}'
 
 
 class TestingConfig(Config):
+    DEBUG = False
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///{DB_TESTING}'
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = False
 
 
 config = {

@@ -41,4 +41,8 @@ def login() -> 'html':
 @login_required
 def logout() -> 'redirect':
     logout_user()
+    session.pop('full_name', None)
+    session.pop('user_id', None)
+    session.pop('roles_id', None)
+
     return redirect(url_for('auth.login'))
