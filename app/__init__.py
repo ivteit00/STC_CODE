@@ -9,6 +9,7 @@ from config import config
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
+DB_TESTING = 'testing.db'
 
 
 def create_app(config_name) -> 'Flask':
@@ -40,6 +41,8 @@ def create_app(config_name) -> 'Flask':
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    login_manager.login_message = "You need to log-in in order to access this page."
+    login_manager.login_message_category = "warning"
 
     return app
 

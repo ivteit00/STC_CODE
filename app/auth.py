@@ -13,6 +13,7 @@ auth = Blueprint('auth', __name__)
 
 
 @auth.route('/', methods=['GET', 'POST'])
+@auth.route('/login', methods=['GET', 'POST'])
 def login() -> 'html':
     """Log-In-viewfunction"""
     logout_user()
@@ -34,7 +35,7 @@ def login() -> 'html':
         else:
             flash('Email does not exist.', category='danger')
 
-    return render_template('login.html', user=current_user, roles_id=session.get('roles_id'))
+    return (render_template('login.html', user=current_user, roles_id=session.get('roles_id')), 200, {'location': '/login'})
 
 
 @auth.route('/logout')

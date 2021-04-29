@@ -54,7 +54,9 @@ def vacation() -> 'html':
                 return redirect(url_for('vac.vacation'))
     user = User.query.filter_by(id=session.get('user_id')).first()
     requests = Vacation.query.filter_by(user_id=user.id).all()
-    return render_template('vacation.html', user=current_user, requests=requests, roles_id=session.get('roles_id'))
+    return (render_template('vacation.html', user=current_user, requests=requests, roles_id=session.get('roles_id')),
+            200,
+            {'location': '/vacation'})
 
 
 @vac.route('/vacation_requests', methods=['GET', 'POST'])
@@ -92,4 +94,6 @@ def vacation_requests() -> 'html':
 
     requests = Vacation.query.all()
     users = User.query.all()
-    return render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id'))
+    return (render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id')),
+            200,
+            {'location': '/vacation_requests'})

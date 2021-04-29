@@ -61,7 +61,9 @@ def worktime() -> 'html':
                   category='success')
             return redirect(url_for('worktime.worktime'))
 
-    return render_template('worktime.html', user=current_user, roles_id=session.get('roles_id'))
+    return (render_template('worktime.html', user=current_user, roles_id=session.get('roles_id')),
+            200,
+            {'location': '/worktime'})
 
 
 @work.route('/approve_worktime', methods=['GET', 'POST'])
@@ -91,10 +93,18 @@ def approve_worktime() -> 'html':
     today = date.today()
     first_date = date.today().replace(day=1)
     hours_till_today = networkdays(first_date, today) * 8
-    return render_template('approve_worktime.html', user=current_user, roles_id=session.get('roles_id'), users=users, User=User, hours_till_today=hours_till_today)
+    return (render_template('approve_worktime.html',
+                            user=current_user,
+                            roles_id=session.get('roles_id'),
+                            users=users,
+                            User=User,
+                            hours_till_today=hours_till_today),
+            200,
+            {'location': '/approve_worktime'}
+            )
 
 
-def calculate_minutes(time: datetime.time)->int:
+def calculate_minutes(time: datetime.time) -> int:
     return (time.hour*60 + time.minute)
 
 

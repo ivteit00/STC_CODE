@@ -36,7 +36,10 @@ def illness() -> 'html':
         flash('You successfully handed in your medical certificate.',
               category='success')
         return redirect(url_for('ill.illness'))
-    return render_template('illness.html', user=current_user, roles_id=session.get('roles_id'))
+    return (render_template('illness.html', user=current_user, roles_id=session.get('roles_id')),
+            200,
+            {'location': '/illness'}
+            )
 
 
 @ill.route('/illness_cases', methods=['GET', 'POST'])
@@ -53,4 +56,7 @@ def illness_cases() -> 'html':
         db.session.commit()
         return redirect(url_for('ill.illness_cases'))
     cases = Illness.query.all()
-    return render_template('illness_cases.html', user=current_user, roles_id=session.get('roles_id'), cases=cases, User=User)
+    return (render_template('illness_cases.html', user=current_user, roles_id=session.get('roles_id'), cases=cases, User=User),
+            200,
+            {'location': '/illness_cases'}
+            )

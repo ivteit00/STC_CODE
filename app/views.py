@@ -49,4 +49,14 @@ def home() -> 'html':
     requests = Vacation.query.filter_by(user_id=user.id, approved=True).all()
     cases = Illness.query.filter_by(user_id=user.id, approved=True).all()
     notifications = Notification.query.filter_by(user_id=user.id).all()
-    return render_template('home.html', full_name=session.get('full_name'), user=current_user, roles_id=session.get('roles_id'), user_data=user, hours_till_today=hours_till_today, requests=requests, cases=cases, notifications=notifications)
+    return (render_template('home.html',
+                            full_name=session.get('full_name'),
+                            user=current_user,
+                            roles_id=session.get('roles_id'),
+                            user_data=user,
+                            hours_till_today=hours_till_today,
+                            requests=requests,
+                            cases=cases,
+                            notifications=notifications),
+            200,
+            {'location': '/home'})
