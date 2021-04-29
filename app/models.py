@@ -4,6 +4,7 @@ from sqlalchemy.sql import func, expression
 
 
 class User(db.Model, UserMixin):
+    """database-model for Users"""
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
@@ -29,6 +30,7 @@ class User(db.Model, UserMixin):
 
 
 class Role(db.Model):
+    """database-model for Role"""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(150))
     users = db.relationship('User', backref='role')
@@ -38,6 +40,7 @@ class Role(db.Model):
 
 
 class Vacation(db.Model):
+    """database-model for Vacation-Requests"""
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
@@ -51,6 +54,7 @@ class Vacation(db.Model):
 
 
 class Illness (db.Model):
+    """database-model for Illness-Cases"""
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
@@ -63,6 +67,7 @@ class Illness (db.Model):
 
 
 class Notification(db.Model):
+    """database-model for Notifications"""
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     message = db.Column(db.String(1500))

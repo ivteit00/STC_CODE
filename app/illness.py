@@ -18,6 +18,8 @@ ill = Blueprint('ill', __name__)
 @ill.route('/illness', methods=['GET', 'POST'])
 @login_required
 def illness() -> 'html':
+    """View function for illness endpoint"""
+    # check for the http request method
     if request.method == 'POST':
         start_date = datetime.strptime(
             request.form.get('start_date'), '%Y-%m-%d')
@@ -36,6 +38,8 @@ def illness() -> 'html':
         flash('You successfully handed in your medical certificate.',
               category='success')
         return redirect(url_for('ill.illness'))
+    # code executed if the http request is not a POST request
+    # return the rendered template which the user can see
     return (render_template('illness.html', user=current_user, roles_id=session.get('roles_id')),
             200,
             {'location': '/illness'}
@@ -46,6 +50,7 @@ def illness() -> 'html':
 @login_required
 @hr_role_required
 def illness_cases() -> 'html':
+    """View function for illness_cases"""
     if request.method == 'POST':
         case_id = request.form.get('accept-button')
         case = Illness.query.filter_by(id=case_id).first()
@@ -55,6 +60,8 @@ def illness_cases() -> 'html':
         db.session.add(case)
         db.session.commit()
         return redirect(url_for('ill.illness_cases'))
+    # code executed if the http request is not a POST request
+    # return the rendered template which the user can see
     cases = Illness.query.all()
     return (render_template('illness_cases.html', user=current_user, roles_id=session.get('roles_id'), cases=cases, User=User),
             200,

@@ -13,7 +13,9 @@ DB_TESTING = 'testing.db'
 
 
 def create_app(config_name) -> 'Flask':
+    """App factory"""
     app = Flask(__name__)
+    # cofiguring the app with the classes from the config.py file
     app.config.from_object(config[config_name])
     db.init_app(app)
 
@@ -31,9 +33,10 @@ def create_app(config_name) -> 'Flask':
     app.register_blueprint(ill)
 
     from .models import User
-
+    # create the database
     create_database(app=app)
 
+    # create and configer the LoginManager
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -48,6 +51,8 @@ def create_app(config_name) -> 'Flask':
 
 
 def create_database(app):
+    """database factory"""
+    # only create db if it doesn't exist
     if not path.exists('app/'+DB_NAME):
         db.create_all(app=app)
         print('Created database!')

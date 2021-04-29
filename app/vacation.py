@@ -19,7 +19,10 @@ vac = Blueprint('vac', __name__)
 @vac.route('/vacation', methods=['GET', 'POST'])
 @login_required
 def vacation() -> 'html':
+    """View function for vacations"""
+    # check if the http request is a POST request
     if request.method == 'POST':
+        # query the database
         start_date = datetime.strptime(
             request.form.get('start_date'), '%Y-%m-%d')
         end_date = datetime.strptime(
@@ -30,7 +33,7 @@ def vacation() -> 'html':
         vacation_days = user.vacation_days
         vacation_days_taken = user.vacation_days_taken
         vacation_days_available = vacation_days - vacation_days_taken
-
+        # do some calculations in order to validate wether the vacation request is valid or not
         if start_date > end_date:
             flash(
                 'You selected a start date before your end date! Please try again.', category='danger')
@@ -45,6 +48,7 @@ def vacation() -> 'html':
                                end_date=end_date, user=user)
                 db.session.add(req)
                 db.session.commit()
+                # add the vacation request to the database
                 flash('Successfully handed in your vacation request.',
                       category='success')
                 return redirect(url_for('vac.vacation'))
@@ -52,6 +56,8 @@ def vacation() -> 'html':
                 flash(
                     'You selected a period that exceeds your available vacation days!', category='danger')
                 return redirect(url_for('vac.vacation'))
+    # code executed if the http request is not a POST request
+    # return the rendered template which the user can see
     user = User.query.filter_by(id=session.get('user_id')).first()
     requests = Vacation.query.filter_by(user_id=user.id).all()
     return (render_template('vacation.html', user=current_user, requests=requests, roles_id=session.get('roles_id')),
@@ -63,8 +69,11 @@ def vacation() -> 'html':
 @login_required
 @chef_or_hr_role_required
 def vacation_requests() -> 'html':
+    """View function for all vacation-requests"""
     if request.method == 'POST':
+        # check if the http request is a POST request
         if request.form.get('accept-button'):
+            # check if the accept button was clicked in order to accept the vacation requet
             request_id = request.form.get('accept-button')
             req = Vacation.query.filter_by(id=request_id).first()
             req.approved = True
@@ -79,6 +88,7 @@ def vacation_requests() -> 'html':
                   category='success')
             return redirect(url_for('vac.vacation_requests'))
         elif request.form.get('reject-button'):
+            # check if the reject button was clicked in order to reject the vacation request
             request_id = request.form.get('reject-button')
             user_id = Vacation.query.filter_by(id=request_id).first().user_id
             user = User.query.filter_by(id=user_id).first()
@@ -92,6 +102,8 @@ def vacation_requests() -> 'html':
             flash('You succesfully rejected the Vacation request. The employee is getting notified.', category='warning')
             return redirect(url_for('vac.vacation_requests'))
 
+    # code executed if the http request is not a POST request
+    # return the rendered template which the user can see
     requests = Vacation.query.all()
     users = User.query.all()
     return (render_template('vacation_requests.html', requests=requests, user=current_user,  users=users, User=User, roles_id=session.get('roles_id')),
