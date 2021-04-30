@@ -24,13 +24,8 @@ class FlaskTestCase(flask_unittest.ClientTestCase):
 
         user_test_1 = User(email='employee@gmail.com', password='password',
                            full_name='Max Mustermann', role=employee_role)
-        user_test_2 = User(email='chef@gmail.com', password='password',
-                           full_name='John Doe', role=supervisor_role)
-        user_test_3 = User(email='hr@gmail.com', password='password',
-                           full_name='Anita John', role=hr_role)
-
         db.session.add_all([employee_role, supervisor_role,
-                           hr_role, user_test_1, user_test_2, user_test_3])
+                           hr_role, user_test_1])
         db.session.commit()
 
     def tearDown(self, client):
@@ -58,7 +53,7 @@ class FlaskTestCase(flask_unittest.ClientTestCase):
         )
         self.assertLocationHeader(
             rv=response,
-            expected_location='http://localhost/login'
+            expected_location='http://localhost/login',
         )
 
 
