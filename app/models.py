@@ -50,7 +50,7 @@ class Vacation(db.Model):
     rejected = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Vacation %r>' % self.id
+        return '<Vacation {id}, start:{start_date}, end:{end_date}, user_id:{user_id}, approved:{approved}>'.format(id=self.id, start_date=self.start_date, end_date=self.end_date, user_id=self.user_id, approved=self.approved)
 
 
 class Illness (db.Model):
@@ -63,7 +63,7 @@ class Illness (db.Model):
     notify = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return '<Illness %r>' % self.user_id
+        return '<Illness {id}, start: {start}, end: {end}, approved:{approved}>'.format(id=self.id, start=self.start_date, end=self.end_date, approved=self.approved)
 
 
 class Notification(db.Model):

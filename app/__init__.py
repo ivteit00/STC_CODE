@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from os import path
 
 from config import config
+from .api import user
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
@@ -31,6 +32,7 @@ def create_app(config_name) -> 'Flask':
     app.register_blueprint(work)
     app.register_blueprint(vac)
     app.register_blueprint(ill)
+    app.register_blueprint(user.api, url_prefix='/api/v1.0')
 
     from .models import User
     # create the database

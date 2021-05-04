@@ -20,6 +20,7 @@ def login() -> 'html':
     if request.method == 'POST':  # check for the http request method
         email = request.form.get('email')
         password = request.form.get('password')
+        # query the database for user
         user = User.query.filter_by(email=email).first()
 
         if user:
@@ -44,8 +45,8 @@ def login() -> 'html':
 @login_required
 def logout() -> 'redirect':
     """Logout view function, that only redirects to auth.login"""
-    logout_user()  
-    # log out the user 
+    logout_user()
+    # log out the user
     # delete all user specific entries from the session variable
     session.pop('full_name', None)
     session.pop('user_id', None)
