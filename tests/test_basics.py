@@ -23,7 +23,3 @@ class BasicTestCases(unittest.TestCase):
     def test_app_is_testing(self):
         """Test if the configuration is right"""
         self.assertTrue(current_app.config['TESTING'])
-
-
-if __name__ == '__main__':
-    unittest.main()

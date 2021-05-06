@@ -54,7 +54,3 @@ class FlaskTestCase(flask_unittest.ClientTestCase):
 
     # def test_access_restriction(self, client) -> None:
     #     pass
-
-
-if __name__ == '__main__':
-    unittest.main()
