@@ -17,9 +17,11 @@ class BasicTestCases(unittest.TestCase):
         self.app_context.pop()
 
     def test_app_exists(self):
+        """Test if create_app function works correctly"""
         self.assertFalse(current_app is None)
 
     def test_app_is_testing(self):
+        """Test if the configuration is right"""
         self.assertTrue(current_app.config['TESTING'])
 
 
